@@ -1,0 +1,11 @@
+digraph comp {
+  rankdir=TB; fontname="Liberation Serif"; node [fontname="Liberation Serif", fontsize=11, shape=box, style="filled", fillcolor="#E8F0FE"]; edge [fontname="Liberation Serif", fontsize=9];
+  subgraph cluster_client { label="Client (browser)"; style=rounded; web [label="Web UI (Next.js, TypeScript)\n(catalog, seat map, tickets, admin)"]; }
+  subgraph cluster_api { label="Backend (Go, modular monolith — draft)"; style=rounded;
+    http [label="HTTP/REST API layer\n(handlers, validation)"]; auth [label="Auth module\n(JWT, roles)"]; cat [label="Catalog module\n(movies, sessions, halls)"];
+    book [label="Booking module\n(seat hold, confirm, cancel)", fillcolor="#FFF2CC"]; stat [label="Statistics module"]; paym [label="Payment adapter"]; repo [label="Repository layer\n(SQL, transactions)"];
+  }
+  db [label="PostgreSQL", shape=cylinder, fillcolor="#D9EAD3"]; ext [label="Payment provider (sandbox)", style="dashed,filled", fillcolor="#F3F3F3"];
+  web -> http [label="HTTPS / JSON"]; http -> auth; http -> cat; http -> book; http -> stat;
+  book -> paym; paym -> ext; auth -> repo; cat -> repo; book -> repo; stat -> repo; repo -> db [label="SQL"];
+}

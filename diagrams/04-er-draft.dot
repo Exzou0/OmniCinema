@@ -1,0 +1,8 @@
+digraph er {
+  rankdir=LR; node [shape=record, fontname="Liberation Serif", fontsize=10, style=filled, fillcolor="#FFFFFF"]; edge [fontname="Liberation Serif", fontsize=9];
+  users [label="{users|id PK\lname\lemail UNIQUE\lpassword_hash\lrole\l}"]; movies [label="{movies|id PK\ltitle\lgenre\lduration_min\lrating\l}"];
+  halls [label="{halls|id PK\lname\l}"]; seats [label="{seats|id PK\lhall_id FK\lrow_no\lseat_no\l}"];
+  sessions [label="{sessions|id PK\lmovie_id FK\lhall_id FK\lstarts_at\lprice\l}"];
+  tickets [label="{tickets|id PK\lsession_id FK\lseat_id FK\luser_id FK\lstatus\lprice\lhold_expires_at\lUNIQUE(session_id, seat_id)\l   WHERE status IN (HELD, BOOKED)\l}", fillcolor="#FFF2CC"];
+  halls -> seats [label="1..*"]; movies -> sessions [label="1..*"]; halls -> sessions [label="1..*"]; sessions -> tickets [label="1..*"]; seats -> tickets [label="1..*"]; users -> tickets [label="1..*"];
+}
