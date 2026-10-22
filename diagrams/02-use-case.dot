@@ -1,0 +1,14 @@
+digraph uc {
+  rankdir=LR; fontname="Liberation Serif"; node [fontname="Liberation Serif", fontsize=11]; edge [fontname="Liberation Serif", fontsize=9, arrowhead=none];
+  subgraph cluster_sys { label="Cinema Booking Platform"; style=rounded; color="#555555";
+    node [shape=ellipse, style=filled, fillcolor="#FFF2CC"];
+    UC1 [label="UC-01 Register / log in"]; UC2 [label="UC-02 Browse movies\nand sessions"];
+    UC3 [label="UC-03 Select seats"]; UC4 [label="UC-04 Book and pay"];
+    UC5 [label="UC-05 View / cancel ticket"]; UC6 [label="UC-06 Manage movies\nand sessions"];
+    UC7 [label="UC-07 Manage halls\nand seat layout"]; UC8 [label="UC-08 View sales statistics"];
+  }
+  guest [label="Guest", shape=box]; user [label="Registered user", shape=box]; admin [label="Administrator", shape=box]; mgr [label="Manager", shape=box]; pay [label="Payment provider", shape=box, style=dashed];
+  guest -> UC1; guest -> UC2; user -> UC2; user -> UC3; user -> UC4; user -> UC5; user -> UC1;
+  admin -> UC6; admin -> UC7; mgr -> UC8; UC4 -> pay;
+  UC4 -> UC3 [style=dashed, arrowhead=vee, label="«include»"];
+}

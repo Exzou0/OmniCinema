@@ -1,0 +1,14 @@
+digraph context {
+  rankdir=LR; fontname="Liberation Serif"; node [fontname="Liberation Serif", fontsize=12]; edge [fontname="Liberation Serif", fontsize=10];
+  viewer  [label="Moviegoer\n(registered user / guest)", shape=box, style="rounded,filled", fillcolor="#E8F0FE"];
+  admin   [label="Cinema administrator", shape=box, style="rounded,filled", fillcolor="#E8F0FE"];
+  manager [label="Cinema manager", shape=box, style="rounded,filled", fillcolor="#E8F0FE"];
+  sys     [label="Cinema Booking Platform\n(web client + backend API\n+ PostgreSQL)", shape=box, style="filled,bold", fillcolor="#FFF2CC", penwidth=2];
+  pay     [label="Payment provider\n(external, sandbox in MVP)", shape=box, style="dashed,filled", fillcolor="#F3F3F3"];
+  mail    [label="E-mail / notification service\n(external, optional)", shape=box, style="dashed,filled", fillcolor="#F3F3F3"];
+  viewer  -> sys [label="browse sessions, select seats,\nbook, view tickets"];
+  admin   -> sys [label="manage movies, halls,\nsessions, prices"];
+  manager -> sys [label="view sales and\noccupancy statistics"];
+  sys -> pay  [label="payment request"]; pay -> sys [label="payment result"];
+  sys -> mail [label="booking confirmation"];
+}
